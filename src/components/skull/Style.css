@@ -1,0 +1,136 @@
+.secondMainContainer1 {
+    position: relative;
+    justify-content: center;
+    padding: 1rem 7rem;
+}
+
+.imageContainer1 {
+    justify-content: center;
+    display: flex;
+}
+
+.card1 {
+    /* margin: 1rem; */
+
+}
+
+.card2 {
+    margin: 1rem;
+    height: 40rem;
+    width: 30rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+    border-radius: 20px;
+}
+
+.image1 {
+    height: 5rem;
+    width: 4rem;
+    border-radius: 10px;
+    margin: 1rem 0rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.titleContainer1 {
+    width: 100%;
+    margin: 1rem 0rem;
+}
+
+.title1 {
+    height: 4rem;
+    border-radius: 10px;
+    animation: skeleton-loading 1s linear infinite alternate;
+    margin-bottom: 1rem;
+}
+
+.desc1 {
+    height: 10rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+    border-radius: 10px;
+}
+
+.prices1 {
+    animation: skeleton-loading 1s linear infinite alternate;
+    border-radius: 7px;
+    width: 13rem;
+    height: 1.5rem;
+    margin: 0.5rem 0rem;
+}
+
+.sizeMaincontainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.box1 {
+    height: 5rem;
+    width: 9rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
+  }
+  
+
+
+
+
+
+/* Media Qureas */
+
+/* Big Screen Media */
+@media screen and (min-width: 1022px) {
+    .secondMainContainer1 {
+        display: flex;
+        padding: 1rem 15rem;
+    }
+    .imageContainer1{
+        width: 40vw;
+    }
+
+    .box1 {
+        height: 4rem;
+        width: 7rem;
+    }
+
+}
+
+/* Small Scree Media  */
+@media screen and (max-width: 1022px) {
+    .imageContainer1 {
+        display: flex;
+    }
+
+    .titleContainer1 {
+        width: auto;
+    }
+
+    .secondMainContainer1 {
+        padding: 1rem 5rem;
+    }
+
+    .card2 {
+        height: 45rem;
+        width: 35rem;
+        animation: skeleton-loading 1s linear infinite alternate;
+        border-radius: 20px;
+    }
+}
+@media (min-width: 1022px) and (max-width: 1305px) {
+    .box1 {
+        height: 4rem;
+        width: 6.5rem;
+    }
+}
