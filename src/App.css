@@ -1495,7 +1495,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .product-featured .showcase-container {
   min-width: 100%;
-  padding: 30px;
+  padding: 0px;
   border: 1px solid var(--cultured);
   -webkit-border-radius: var(--border-radius-md);
   border-radius: var(--border-radius-md);
@@ -1680,8 +1680,8 @@ body::-webkit-scrollbar-thumb:hover {
 .product-grid {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr;
-  grid-template-columns: 1fr;
+  /* -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr; */
   gap: 25px;
 }
 

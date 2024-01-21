@@ -35,7 +35,7 @@ const RelatedProducts = () => {
                         to={`/product/${item.id}`}
                         className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer"
                     >
-                        <img className="w-full  " src={item?.attributes?.img?.data?.attributes?.url} alt="Not Loaded" />
+                        <img className="w-full  " src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img?.data?.attributes?.url} alt="Not Loaded" />
                         <div className="p-4 text-black/[0.9]">
                             <h2 className="text-lg font-medium">{item?.attributes.title}</h2>
                             <div className="flex items-center text-black/[0.5]">

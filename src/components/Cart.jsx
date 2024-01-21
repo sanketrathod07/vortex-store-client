@@ -10,7 +10,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from './Loading';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { makeRequest } from "../hooks/makeRequest";
 
 const Cart = () => {
     const products = useSelector(state => state.cart.products);
@@ -96,32 +97,48 @@ const Cart = () => {
     // console.log(products)
 
 
+    // ***********STRAPI PAYMENT CODE START***********
+
+    // const stripePromise = loadStripe(
+    //     "pk_test_51NycusSGtdE7Lt2bcwpMJFPM7Bn7WUgLhCVVCf0YF1oNbBAZ37kzcFuB72kmeRu7aoYOJ8HZU2VmZayk3D2OthzT00B86DORZX"
+    //   );
+    //   const handlePayment = async () => {
+    //     try {
+    //       const stripe = await stripePromise;
+    //       const res = await makeRequest.post("/orders", {
+    //         products,
+    //       });
+    //       await stripe.redirectToCheckout({
+    //         sessionId: res.data.stripeSession.id,
+    //       });
+
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   };
+
+
+    // ***********STRAPI PAYMENT CODE END***********
+
     // payment integration
-    const makePayment = async()=>{
-        const stripe = await loadStripe("pk_test_51NycusSGtdE7Lt2bcwpMJFPM7Bn7WUgLhCVVCf0YF1oNbBAZ37kzcFuB72kmeRu7aoYOJ8HZU2VmZayk3D2OthzT00B86DORZX");
 
-        const body = {
-            products:products
-        }
-        const headers = {
-            "Content-Type":"application/json"
-        }
-        const response = await fetch("http://localhost:7000/api/create-checkout-session",{
-            method:"POST",
-            headers:headers,
-            body:JSON.stringify(body)
-        });
+    const stripePromise = loadStripe(
+        "pk_test_51NycusSGtdE7Lt2bcwpMJFPM7Bn7WUgLhCVVCf0YF1oNbBAZ37kzcFuB72kmeRu7aoYOJ8HZU2VmZayk3D2OthzT00B86DORZX"
+    );
+    const handlePayment = async () => {
+        try {
+            const stripe = await stripePromise;
+            const res = await makeRequest.post("/order", {
+                products,
+            });
+            await stripe.redirectToCheckout({
+                sessionId: res.data.stripeSession.id,
+            });
 
-        const session = await response.json();
-
-        const result = stripe.redirectToCheckout({
-            sessionId:session.id
-        });
-        
-        if(result.error){
-            console.log(result.error);
+        } catch (err) {
+            console.log(err);
         }
-    }
+    };
 
 
 
@@ -131,7 +148,7 @@ const Cart = () => {
         <div className="cartMainContainer w-full md:py-10">
             {loadingToast && <Loading />} {/* Show loading component when loadingToast is true */}
             <ToastContainer />
-            
+
             <Wrapper>
                 {products.length > 0 ? (
                     <>
@@ -165,7 +182,7 @@ const Cart = () => {
                                         <div key={item.id} className="flex py-5 gap-3 md:gap-5 border-b">
                                             {/* IMAGE START */}
                                             <div className="shrink-0 aspect-square w-[50px] md:w-120px]">
-                                                <img src={item?.img} alt="IMAGE NOT FOUND" />
+                                                <img src={process.env.REACT_APP_UPLOAD_URL + item?.img} alt="IMAGE NOT FOUND" />
                                             </div>
                                             {/* IMAGE END */}
                                             <div className="w-full flex flex-col">
@@ -239,7 +256,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 {/* BUTTON START */}
-                                <button className='w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75' onClick={()=>{handleAddToCart(); makePayment();}}>
+                                <button className='w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75' onClick={() => { handleAddToCart(); handlePayment(); }}>
                                     Checkout
                                 </button>
                                 {/* BUTTON END */}

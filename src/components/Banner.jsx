@@ -1470,8 +1470,8 @@ const Banner = () => {
                   <Link key={item.id} to={`/product/${item.id}`}>
                     <div className="showcase">
                       <div className="showcase-banner">
-                        <img src={item?.attributes?.img?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img default" />
-                        <img src={item?.attributes?.img2?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img hover" />
+                        <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img default" />
+                        <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img2?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img hover" />
                         <p className="showcase-badge">{/*item.badge*/}</p>
                         <div className="showcase-actions">
                           <button className="btn-action">
