@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 const Loading = () => {
     return (
-        <div class="spinner-box">
-            <div class="circle-border">
-                <div class="circle-core"></div>
+        <div className="spinner-overlay">
+            <div className="spinner-container">
+                <div className="loading-spinner"></div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Loading
+export default Loading;

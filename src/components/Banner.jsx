@@ -30,8 +30,11 @@ const Banner = () => {
   };
 
   const showToastMessage = () => {
-    toast.success("Added to Your Card !", {
+    toast.success("Added to Your Cart!", {
       position: toast.POSITION.BOTTOM_RIGHT,
+      style: {
+        bottom: window.innerWidth <= 1024 ? '60px' : '0px'
+      }
     });
   };
 
@@ -1539,7 +1542,7 @@ const Banner = () => {
             - TESTIMONIALS
           --> */}
 
-            <Testimonial/>
+            <Testimonial />
 
 
             {/* 

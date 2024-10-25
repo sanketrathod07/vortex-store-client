@@ -1,7 +1,6 @@
 import React from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import ProductCard from './ProductCard';
 import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
@@ -40,8 +39,8 @@ const RelatedProducts = () => {
                             <h2 className="text-lg font-medium">{item?.attributes.title}</h2>
                             <div className="flex items-center text-black/[0.5]">
                                 <p className="mr-2 text-lg font-semibold">${item?.attributes.price}</p>
-                                <p className="text-base font-medium line-through">${item?.attributes.price + 10}</p>
-                                <p className="ml-auto text-base font-medium text-green-500">20% off</p>
+                                <p className="text-[0.8rem] lg:text-base font-medium line-through">${item?.attributes.price + 10}</p>
+                                <p className="ml-auto text-[0.6rem] lg:text-base font-medium text-green-500">20% off</p>
 
                             </div>
 

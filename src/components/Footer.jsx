@@ -241,25 +241,25 @@ const Footer = () => {
                             <ul className="social-link">
 
                                 <li className="footer-nav-item">
-                                    <a href="#" className="footer-nav-link">
-                                        <ion-icon name="logo-facebook"></ion-icon>
+                                    <a href="https://github.com" className="footer-nav-link" target='blank'>
+                                        <ion-icon name="logo-github"></ion-icon>
                                     </a>
                                 </li>
 
                                 <li className="footer-nav-item">
-                                    <a href="#" className="footer-nav-link">
-                                        <ion-icon name="logo-twitter"></ion-icon>
-                                    </a>
-                                </li>
-
-                                <li className="footer-nav-item">
-                                    <a href="#" className="footer-nav-link">
+                                    <a href="https://www.linkedin.com/in/sanketrathod757/" className="footer-nav-link" target='blank'>
                                         <ion-icon name="logo-linkedin"></ion-icon>
                                     </a>
                                 </li>
 
                                 <li className="footer-nav-item">
-                                    <a href="#" className="footer-nav-link">
+                                    <a href="https://whatsapp.com/channel/0029Vag4WiaEAKWKQ0vvdl0A" className="footer-nav-link" target='blank'>
+                                        <ion-icon name="logo-whatsapp"></ion-icon>
+                                    </a>
+                                </li>
+
+                                <li className="footer-nav-item">
+                                    <a href="https://www.instagram.com/mr.sanket.r" className="footer-nav-link" target='blank'>
                                         <ion-icon name="logo-instagram"></ion-icon>
                                     </a>
                                 </li>
@@ -280,7 +280,7 @@ const Footer = () => {
                     <img src="./assets/images/payment.png" alt="payment method" className="payment-img" />
 
                     <p className="copyright">
-                        Copyright &copy; <a href="#">Anon</a> all rights reserved.
+                        Copyright &copy; <a href="#">Sanket</a> all rights reserved.
                     </p>
 
                 </div>

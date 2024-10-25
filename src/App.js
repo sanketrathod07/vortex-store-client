@@ -6,8 +6,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
 import React, { useEffect } from 'react';
-import Skelleton from './components/skull/Skelleton';
-import Loading from './components/Loading';
 import Products from './components/Products';
 
 function App() {

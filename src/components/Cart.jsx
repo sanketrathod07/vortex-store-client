@@ -39,22 +39,35 @@ const Cart = () => {
     const showToastMessage = () => {
         toast.success("Proceeding To Checkout !", {
             position: toast.POSITION.BOTTOM_RIGHT,
+            style: {
+                bottom: window.innerWidth <= 1024 ? '60px' : '0px'
+            }
         });
     };
     const showToastMessageReset = () => {
         toast.success("Cart is Reset !", {
             position: toast.POSITION.BOTTOM_RIGHT,
+            style: {
+                bottom: window.innerWidth <= 1024 ? '60px' : '0px'
+            }
         });
     };
+
     const showToastMessageItemDeleted = () => {
         toast.success("Item Deleted !", {
             position: toast.POSITION.BOTTOM_RIGHT,
+            style: {
+                bottom: window.innerWidth <= 1024 ? '60px' : '0px'
+            }
         });
     };
 
     const showToastMessageError = () => {
         toast.error("Already Empty !", {
             position: toast.POSITION.BOTTOM_RIGHT,
+            style: {
+                bottom: window.innerWidth <= 1024 ? '60px' : '0px'
+            }
         });
     }
 

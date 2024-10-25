@@ -24,8 +24,12 @@ const Product = () => {
     const quantity = 1;
 
     const showToastMessage = () => {
-        toast.success("Added to Your Card !", {
+        toast.success("Added to Your Cart!", {
             position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1000,
+            style: {
+                bottom: window.innerWidth <= 1024 ? '60px' : '0px'
+            }
         });
     };
 
@@ -40,26 +44,48 @@ const Product = () => {
     const handleAddToCart = () => {
         setLoadingToast(true); // Show loading toast
         setTimeout(() => {
-          setLoadingToast(false); // Hide loading toast after 1 second
-          data &&
-            dispatch(addToCart({
-              id: data.id,
-              title: data.attributes.title,
-              desc: data.attributes.desc,
-              price: data.attributes.price,
-              img: data.attributes.img.data.attributes.url,
-              quantity: quantity,
-            }));
-          showToastMessage();
+            setLoadingToast(false); // Hide loading toast after 1 second
+            data &&
+                dispatch(addToCart({
+                    id: data.id,
+                    title: data.attributes.title,
+                    desc: data.attributes.desc,
+                    price: data.attributes.price,
+                    img: data.attributes.img.data.attributes.url,
+                    quantity: quantity,
+                }));
+            showToastMessage();
         }, 500); // 1 second delay for showing the loading toast
-      };
-    
-      if (loading || showSkeleton) {
+    };
+
+    const [isScreenBelow1024, setIsScreenBelow1024] = useState(window.innerWidth < 1024);
+
+    useEffect(() => {
+        // Update the screen size on resize
+        const handleResize = () => {
+            setIsScreenBelow1024(window.innerWidth < 1024);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup the event listener on component unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    if (loading || showSkeleton) {
         return <Skelleton />;
-      }
+    }
     return (
         <>
-            <Link to={`/cart`}><ToastContainer /></Link>
+            {isScreenBelow1024 ? (
+                <ToastContainer />
+            ) : (
+                <Link to={`/cart`}>
+                    <ToastContainer />
+                </Link>
+            )}
             {loadingToast && <Loading />} {/* Show loading component when loadingToast is true */}
             <div key={data?.id} className="productMainContainer w-full md:py-4">
                 <Wrapper>
@@ -70,7 +96,7 @@ const Product = () => {
                             <ProductDetailsCarousel item={data} />
                         </div>
                         {/* right column start */}
-                        <div className="flex-[1] py-3">
+                        <div className="flex-[1] py-0 lg:py-3">
                             {/* PRODUCT TITLE */}
                             <div className="text-[34px] font-semibold mb-2">
                                 {data?.attributes?.title}
@@ -88,7 +114,7 @@ const Product = () => {
                             <div className="text-md font-medium text-black/[0.5]">
                                 incl. of taxes
                             </div>
-                            <div className="text-md font-medium text-black/[0.5] mb-20">
+                            <div className="text-md font-medium text-black/[0.5] mb-10 lg:mb-14">
                                 {`(Also includes all applicable duties)`}
                             </div>
 
@@ -150,7 +176,7 @@ const Product = () => {
 
                             {/* WHISHLIST BUTTON START */}
                             <button
-                                className="w-full py-4 rounded-full border border-black px-4 py-2 rounded-md text-lg font-medium transition-transform active:scale-95 flex items-center justify-center gap-2 hover:opacity-75 mb-10"
+                                className="w-full border border-black px-4 py-2 rounded-md text-lg font-medium transition-transform active:scale-95 flex items-center justify-center gap-2 hover:opacity-75 mb-10"
                                 style={{ borderWidth: '2px', borderColor: 'black' }}
                             >
                                 Whishlist<ion-icon name="heart-outline"></ion-icon>

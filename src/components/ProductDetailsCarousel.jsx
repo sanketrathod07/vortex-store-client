@@ -14,8 +14,8 @@ const ProductDetailsCarousel = ({ item }) => {
                 thumbWidth={60}
                 className="productCarousel"
             >
-                <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img?.data?.attributes?.url}/>
-                <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img2?.data?.attributes?.url}/>
+                <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img?.data?.attributes?.url} />
+                <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img2?.data?.attributes?.url} />
             </Carousel>
         </div>
     );

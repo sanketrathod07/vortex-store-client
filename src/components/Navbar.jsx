@@ -11,6 +11,14 @@ import { auth } from '../firebase';
 const Navbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userData, setUserData] = useState({})
+    const [openMenu, setOpenMenu] = useState({});
+
+    const toggleMenu = (menuName) => {
+        setOpenMenu((prev) => ({
+            ...prev,
+            [menuName]: !prev[menuName],
+        }));
+    };
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeAccordion, setActiveAccordion] = useState(null);
@@ -499,19 +507,18 @@ const Navbar = () => {
 
                         <li className="menu-category">
 
-                            <button className="accordion-menu" data-accordion-btn>
+                            <button className="accordion-menu" data-accordion-btn onClick={() => toggleMenu('men')}>
                                 <p className="menu-title">Men's</p>
 
                                 <div>
-                                    <ion-icon name="add-outline" className="add-icon"></ion-icon>
-                                    <ion-icon name="remove-outline" className="remove-icon"></ion-icon>
+                                    <ion-icon name={openMenu.men ? "remove-outline" : "add-outline"} className={openMenu.men ? "remove-icon" : "add-icon"}></ion-icon>
                                 </div>
                             </button>
 
-                            <ul className="submenu-category-list" data-accordion>
+                            <ul className={`submenu-category-list ${openMenu.men ? 'active' : ''}`} data-accordion>
 
                                 <li className="submenu-category">
-                                    <a href="#" className="submenu-title">Shirt</a>
+                                    <Link to="/" className="submenu-title">Shirt</Link>
                                 </li>
 
                                 <li className="submenu-category">
@@ -532,16 +539,16 @@ const Navbar = () => {
 
                         <li className="menu-category">
 
-                            <button className="accordion-menu" data-accordion-btn>
+                            <button className="accordion-menu" data-accordion-btn onClick={() => toggleMenu('women')}>
                                 <p className="menu-title">Women's</p>
 
                                 <div>
-                                    <ion-icon name="add-outline" className="add-icon"></ion-icon>
-                                    <ion-icon name="remove-outline" className="remove-icon"></ion-icon>
+                                    <ion-icon name={openMenu.women ? "remove-outline" : "add-outline"} className={openMenu.women ? "remove-icon" : "add-icon"}></ion-icon>
                                 </div>
+
                             </button>
 
-                            <ul className="submenu-category-list" data-accordion>
+                            <ul className={`submenu-category-list ${openMenu.women ? 'active' : ''}`} data-accordion>
 
                                 <li className="submenu-category">
                                     <a href="#" className="submenu-title">Dress & Frock</a>
@@ -565,16 +572,15 @@ const Navbar = () => {
 
                         <li className="menu-category">
 
-                            <button className="accordion-menu" data-accordion-btn>
+                            <button className="accordion-menu" data-accordion-btn onClick={() => toggleMenu('jewelry')}>
                                 <p className="menu-title">Jewelry</p>
 
                                 <div>
-                                    <ion-icon name="add-outline" className="add-icon"></ion-icon>
-                                    <ion-icon name="remove-outline" className="remove-icon"></ion-icon>
+                                    <ion-icon name={openMenu.jewelry ? "remove-outline" : "add-outline"} className={openMenu.jewelry ? "remove-icon" : "add-icon"}></ion-icon>
                                 </div>
                             </button>
 
-                            <ul className="submenu-category-list" data-accordion>
+                            <ul className={`submenu-category-list ${openMenu.jewelry ? 'active' : ''}`} data-accordion>
 
                                 <li className="submenu-category">
                                     <a href="#" className="submenu-title">Earrings</a>
@@ -598,16 +604,15 @@ const Navbar = () => {
 
                         <li className="menu-category">
 
-                            <button className="accordion-menu" data-accordion-btn>
+                            <button className="accordion-menu" data-accordion-btn onClick={() => toggleMenu('perfume')}>
                                 <p className="menu-title">Perfume</p>
 
                                 <div>
-                                    <ion-icon name="add-outline" className="add-icon"></ion-icon>
-                                    <ion-icon name="remove-outline" className="remove-icon"></ion-icon>
+                                    <ion-icon name={openMenu.perfume ? "remove-outline" : "add-outline"} className={openMenu.perfume ? "remove-icon" : "add-icon"}></ion-icon>
                                 </div>
                             </button>
 
-                            <ul className="submenu-category-list" data-accordion>
+                            <ul className={`submenu-category-list ${openMenu.perfume ? 'active' : ''}`} data-accordion>
 
                                 <li className="submenu-category">
                                     <a href="#" className="submenu-title">Clothes Perfume</a>
