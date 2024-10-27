@@ -12,7 +12,7 @@ const truncateWords = (text, limit) => {
   return text;
 };
 
-const DealoftheDay = () => {
+const DealoftheDay = ({ fallbackDealOfTheDay }) => {
   const { data, loading, error } = useFetch(`/products?populate=*&filters[deal]=true&`);
   const [timeRemaining, setTimeRemaining] = useState(getTimeRemainingUntil(19, 0, 0)); // 7:00 PM
   const dispatch = useDispatch();
@@ -49,21 +49,32 @@ const DealoftheDay = () => {
   // Calculate already sold and available slots based on the current minute
   const currentMinute = new Date().getMinutes();
   const alreadySold = Math.min(currentMinute, availableSlots);
+  // console.log("fallbackDealOfTheDay", fallbackDealOfTheDay);
+
+
+  const dealProducts = data && data.length > 0 ? data : fallbackDealOfTheDay; // Use fallback if no data
+  // console.log("dealProducts", dealProducts)
+
 
   return (
     <>
       <div className="product-featured">
         <h2 className="title">Deal of the Day</h2>
         <div className="showcase-wrapper has-scrollbar">
-          {data?.map((item) => (
+          {dealProducts?.map((item) => (
             <div className="showcase-container" key={item.id}>
               <div className="showcase">
                 <div className="showcase-banner">
-                  <img
+                  {data && data.length > 0 ? <img
                     src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img?.data?.attributes?.url}
                     alt="Rose Gold diamonds Earring"
                     className="showcase-img"
+                  /> : <img
+                    src={item?.attributes?.img?.data?.attributes?.url}
+                    alt="Rose Gold diamonds Earring"
+                    className="showcase-img"
                   />
+                  }
                 </div>
                 <div className="showcase-content">
                   <div className="showcase-rating">

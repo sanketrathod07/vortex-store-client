@@ -10,11 +10,154 @@ import 'react-toastify/dist/ReactToastify.css';
 import DealoftheDay from './DealoftheDay';
 import Testimonial from './Testimonial';
 import Banner_1 from '../images/banner_me.jpg'
+// Demo Images
+
+const fallbackDealOfTheDay = [
+  {
+    id: 1001,
+    attributes: {
+      title: "Gold Diamond Earrings",
+      desc: "Shiny, elegant diamond earrings for any occasion.",
+      price: 120,
+      img: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035875/4_upgn9z.webp",
+          },
+        },
+      },
+      star: 4,
+    },
+  },
+];
+
+const fallbackShowcaseProducts = [
+  {
+    id: 1002,
+    attributes: {
+      title: "Silver Necklace",
+      desc: "An elegant silver necklace for special events.",
+      price: 85,
+      img: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035845/2_imbq1r.webp",
+          },
+        },
+      },
+      img2: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035845/1_etaidq.webp",
+          },
+        },
+      },
+      star: 5,
+      category: "Jewelry",
+    },
+  },
+  {
+    id: 1003,
+    attributes: {
+      title: "Leather Watch",
+      desc: "A stylish leather watch for men.",
+      price: 150,
+      img: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035861/1_emxaqx.webp",
+          },
+        },
+      },
+      img2: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035861/4_gdkkdu.webp",
+          },
+        },
+      },
+      star: 4,
+      category: "Accessories",
+    },
+  },
+  {
+    id: 1004,
+    attributes: {
+      title: "Leather Watch",
+      desc: "A stylish leather watch for men.",
+      price: 150,
+      img: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035824/1_o1map8.webp",
+          },
+        },
+      },
+      img2: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035824/2_pa3wqt.webp",
+          },
+        },
+      },
+      star: 4,
+      category: "Accessories",
+    },
+  },
+  {
+    id: 1005,
+    attributes: {
+      title: "Leather Watch",
+      desc: "A stylish leather watch for men.",
+      price: 150,
+      img: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035911/1_m4snjg.webp",
+          },
+        },
+      },
+      img2: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035912/2_ddjkxi.webp",
+          },
+        },
+      },
+      star: 4,
+      category: "Accessories",
+    },
+  },
+  {
+    id: 1006,
+    attributes: {
+      title: "Leather Watch",
+      desc: "A stylish leather watch for men.",
+      price: 150,
+      img: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035894/2_fuz9dc.webp",
+          },
+        },
+      },
+      img2: {
+        data: {
+          attributes: {
+            url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035894/4_khcca7.webp",
+          },
+        },
+      },
+      star: 4,
+      category: "Accessories",
+    },
+  },
+];
+
 
 const Banner = () => {
 
   const { data } = useFetch(`/products?populate=*&`);
-  console.log(data)
   const dispatch = useDispatch();
   const quantity = 1;
 
@@ -37,6 +180,9 @@ const Banner = () => {
       }
     });
   };
+
+  const showcaseProducts = data && data.length > 0 ? data : fallbackShowcaseProducts; // Use fallback if no data
+
 
 
   return (
@@ -1237,7 +1383,7 @@ const Banner = () => {
 
               </div>
 
-              <div className="product-showcase">
+              {/* <div className="product-showcase">
 
                 <h2 className="title">Top Rated</h2>
 
@@ -1444,7 +1590,7 @@ const Banner = () => {
 
                 </div>
 
-              </div>
+              </div> */}
 
             </div>
 
@@ -1454,7 +1600,7 @@ const Banner = () => {
             - PRODUCT FEATURED
           --> */}
 
-            <DealoftheDay />
+            <DealoftheDay fallbackDealOfTheDay={fallbackDealOfTheDay} />
 
 
 
@@ -1468,13 +1614,23 @@ const Banner = () => {
 
 
               <div className="product-grid">
-
-                {data?.map(item => (
+                {/* ################################################################################################# */}
+                {/* ################################################################################################# */}
+                {showcaseProducts?.map(item => (
                   <Link key={item.id} to={`/product/${item.id}`}>
                     <div className="showcase">
                       <div className="showcase-banner">
-                        <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img default" />
-                        <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img2?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img hover" />
+                        {data && data.length > 0 ?
+                          <>
+                            <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img default" />
+                            <img src={process.env.REACT_APP_UPLOAD_URL + item?.attributes?.img2?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img hover" />
+                          </>
+                          :
+                          <>
+                            <img src={item?.attributes?.img?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img default" />
+                            <img src={item?.attributes?.img2?.data?.attributes?.url} alt={item?.attributes.title} width="300" className="product-img hover" />
+                          </>
+                        }
                         <p className="showcase-badge">{/*item.badge*/}</p>
                         <div className="showcase-actions">
                           <button className="btn-action">

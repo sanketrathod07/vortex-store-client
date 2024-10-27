@@ -13,14 +13,144 @@ import 'react-toastify/dist/ReactToastify.css';
 import Skelleton from './skull/Skelleton';
 import Loading from './Loading';
 
+
+
+const fallbackShowcaseProducts = [
+    {
+        id: 1002,
+        attributes: {
+            title: "Silver Necklace",
+            desc: "An elegant silver necklace for special events.",
+            price: 85,
+            img: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035845/2_imbq1r.webp",
+                    },
+                },
+            },
+            img2: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035845/1_etaidq.webp",
+                    },
+                },
+            },
+            star: 5,
+            category: "Jewelry",
+        },
+    },
+    {
+        id: 1003,
+        attributes: {
+            title: "Leather Watch",
+            desc: "A stylish leather watch for men.",
+            price: 150,
+            img: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035861/1_emxaqx.webp",
+                    },
+                },
+            },
+            img2: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035861/4_gdkkdu.webp",
+                    },
+                },
+            },
+            star: 4,
+            category: "Accessories",
+        },
+    },
+    {
+        id: 1004,
+        attributes: {
+            title: "Leather Watch",
+            desc: "A stylish leather watch for men.",
+            price: 150,
+            img: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035824/1_o1map8.webp",
+                    },
+                },
+            },
+            img2: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035824/2_pa3wqt.webp",
+                    },
+                },
+            },
+            star: 4,
+            category: "Accessories",
+        },
+    },
+    {
+        id: 1005,
+        attributes: {
+            title: "Leather Watch",
+            desc: "A stylish leather watch for men.",
+            price: 150,
+            img: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035911/1_m4snjg.webp",
+                    },
+                },
+            },
+            img2: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035912/2_ddjkxi.webp",
+                    },
+                },
+            },
+            star: 4,
+            category: "Accessories",
+        },
+    },
+    {
+        id: 1006,
+        attributes: {
+            title: "Leather Watch",
+            desc: "A stylish leather watch for men.",
+            price: 150,
+            img: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035894/2_fuz9dc.webp",
+                    },
+                },
+            },
+            img2: {
+                data: {
+                    attributes: {
+                        url: "https://res.cloudinary.com/dq8b6vgab/image/upload/v1730035894/4_khcca7.webp",
+                    },
+                },
+            },
+            star: 4,
+            category: "Accessories",
+        },
+    },
+];
+
+
+
+
 const Product = () => {
 
     const dispatch = useDispatch();
-    const id = useParams().id;
+    const { id } = useParams();
+
 
     const [showSkeleton, setShowSkeleton] = useState(true);
     const [loadingToast, setLoadingToast] = useState(false);
     const { data, loading, error } = useFetch(`/products/${id}?populate=*`)
+    console.log("Data", data)
     const quantity = 1;
 
     const showToastMessage = () => {
@@ -36,47 +166,55 @@ const Product = () => {
     useEffect(() => {
         const skeletonTimeout = setTimeout(() => {
             setShowSkeleton(false);
-        }, 400); // 1 second delay
+        }, 400);
 
         return () => clearTimeout(skeletonTimeout);
     }, []);
 
     const handleAddToCart = () => {
-        setLoadingToast(true); // Show loading toast
+        setLoadingToast(true);
         setTimeout(() => {
-            setLoadingToast(false); // Hide loading toast after 1 second
-            data &&
+            setLoadingToast(false);
+            if (productData) {
                 dispatch(addToCart({
-                    id: data.id,
-                    title: data.attributes.title,
-                    desc: data.attributes.desc,
-                    price: data.attributes.price,
-                    img: data.attributes.img.data.attributes.url,
+                    id: productData.id,
+                    title: productData.attributes.title,
+                    desc: productData.attributes.desc,
+                    price: productData.attributes.price,
+                    img: productData.attributes.img.data.attributes.url,
                     quantity: quantity,
                 }));
-            showToastMessage();
-        }, 500); // 1 second delay for showing the loading toast
+                showToastMessage();
+            }
+        }, 500);
     };
 
     const [isScreenBelow1024, setIsScreenBelow1024] = useState(window.innerWidth < 1024);
 
     useEffect(() => {
-        // Update the screen size on resize
         const handleResize = () => {
             setIsScreenBelow1024(window.innerWidth < 1024);
         };
 
         window.addEventListener('resize', handleResize);
 
-        // Cleanup the event listener on component unmount
         return () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
 
+
+
     if (loading || showSkeleton) {
         return <Skelleton />;
     }
+
+    const productData = data && Object.keys(data).length > 0
+        ? data
+        : fallbackShowcaseProducts.find(p => p.id === Number(id)) || fallbackShowcaseProducts[0];
+
+    console.log("ProductData", productData)
+
     return (
         <>
             {isScreenBelow1024 ? (
@@ -87,29 +225,29 @@ const Product = () => {
                 </Link>
             )}
             {loadingToast && <Loading />} {/* Show loading component when loadingToast is true */}
-            <div key={data?.id} className="productMainContainer w-full md:py-4">
+            <div key={productData?.id} className="productMainContainer w-full md:py-4">
                 <Wrapper>
                     <div className="flex flex-col lg:flex-row md:px-2 gap-[25px] lg:gap-[100px]">
                         {/* left column start */}
                         <div className="w-full md:w-auto flex-[1.5] max-w-[700px] lg:max-w-full mx-auto lg:mx-0">
                             {/* left column end */}
-                            <ProductDetailsCarousel item={data} />
+                            <ProductDetailsCarousel item={productData} />
                         </div>
                         {/* right column start */}
                         <div className="flex-[1] py-0 lg:py-3">
                             {/* PRODUCT TITLE */}
                             <div className="text-[34px] font-semibold mb-2">
-                                {data?.attributes?.title}
+                                {productData?.attributes?.title}
                             </div>
 
                             {/* PRODUCT SUBTITLE */}
                             <div className="text-lg font-semibold mb-5">
-                                {data?.attributes?.categorie}
+                                {productData?.attributes?.categorie}
                             </div>
 
                             {/* PRODUCT PRICE */}
                             <div className="text-lg font-semibold">
-                                MRP : ₹ {data?.attributes?.price}
+                                MRP : ₹ {productData?.attributes?.price}
                             </div>
                             <div className="text-md font-medium text-black/[0.5]">
                                 incl. of taxes
@@ -186,7 +324,7 @@ const Product = () => {
                             <div>
                                 <div className="text-lg font-bold mb-5">Product Details</div>
                                 <div className="markdown text-md mb-5">
-                                    {data?.attributes?.desc}
+                                    {productData?.attributes?.desc}
                                 </div>
                             </div>
                         </div>

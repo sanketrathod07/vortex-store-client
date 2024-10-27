@@ -195,7 +195,7 @@ const Cart = () => {
                                         <div key={item.id} className="flex py-5 gap-3 md:gap-5 border-b">
                                             {/* IMAGE START */}
                                             <div className="shrink-0 aspect-square w-[50px] md:w-120px]">
-                                                <img src={process.env.REACT_APP_UPLOAD_URL + item?.img} alt="IMAGE NOT FOUND" />
+                                                <img src={process.env.REACT_APP_UPLOAD_URL + item?.img ? item?.img : process.env.REACT_APP_UPLOAD_URL + item?.img} alt="IMAGE NOT FOUND" />
                                             </div>
                                             {/* IMAGE END */}
                                             <div className="w-full flex flex-col">
